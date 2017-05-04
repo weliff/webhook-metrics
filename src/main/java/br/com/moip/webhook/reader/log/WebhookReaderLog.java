@@ -1,8 +1,7 @@
 package br.com.moip.webhook.reader.log;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -13,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import br.com.moip.webhook.model.Webhook;
 import br.com.moip.webhook.reader.WebhookReader;
@@ -57,11 +57,8 @@ public class WebhookReaderLog implements WebhookReader {
     }
 
     private void lerWebhooks(Consumer<Webhook> consumer) {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get(this.caminho), Charset.forName("ISO-8859-1"))) {
-            while (reader.ready()) {
-                criarWebhook(reader.readLine()).ifPresent(consumer); 
-            }
-            
+        try (Stream<String> linhas = Files.lines(Paths.get(this.caminho), StandardCharsets.ISO_8859_1)){
+            linhas.forEach(s -> criarWebhook(s).ifPresent(consumer)); 
         } catch (IOException e) {
             throw new FalhaLerArquivoException("Falha ao ler o arquivo", e);
         }

@@ -23,15 +23,17 @@ public class WebhookReaderLogTest {
     @Test
     public void deveLerArquivoComCaracteresEspeciais() throws Exception {
         this.webhookReader = new WebhookReaderLog("src/test/resources/log/logCaracteresEspeciais.txt");
-        webhookReader.buscarUrlsPorQuantidade();
-        webhookReader.buscarStatusPorQuantidade();
+        
+        assertNotNull(webhookReader.buscarUrlsPorQuantidade());
+        assertNotNull(webhookReader.buscarStatusPorQuantidade());
     }
     
     @Test
     public void deveLerArquivoComEspacos() throws Exception {
         this.webhookReader = new WebhookReaderLog("src/test/resources/log/logComEspacos.txt");
-        webhookReader.buscarUrlsPorQuantidade();
-        webhookReader.buscarStatusPorQuantidade();
+        
+        assertNotNull(webhookReader.buscarUrlsPorQuantidade());
+        assertNotNull(webhookReader.buscarStatusPorQuantidade());
     }
     
     @Test

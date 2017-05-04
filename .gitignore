@@ -1,3 +1,4 @@
 .settings/
 hs_err_pid3325.log
 hs_err_pid929.log:q
+/target/
